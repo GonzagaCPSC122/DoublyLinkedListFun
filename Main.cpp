@@ -3,9 +3,9 @@
 int main() {
   DoublyLinkedList list; // start out empty list
 	
-	list.insertAtFront(12);
-	list.insertAtFront(5);
-	list.insertAtFront(3);
+	list.insertInOrder(12);
+	list.insertInOrder(5);
+	list.insertInOrder(3);
 	
 	list.displayList();
 	/*list.deleteNode(3); // delete first node

@@ -15,6 +15,7 @@ class DoublyLinkedList {
 	   struct Node {
 		  int value; // data value Node stores
 		  struct Node * next; // points to next Node in list
+      struct Node * prev; // NEW: points to previous Node in list
 	   }; 
 
 	   Node * head; // list head pointer
