@@ -112,6 +112,9 @@ void DoublyLinkedList::deleteAtFront() {
   if (head != NULL) {
     Node *nodeToDelete = head;
     head = head->next;
+    if (head != NULL) { 
+      head->prev = NULL;
+    }
     delete nodeToDelete;
   }
 }
@@ -121,18 +124,16 @@ void DoublyLinkedList::deleteAtEnd() {
     // list is not empty
     // need to traverse list, stopping at the last node
     Node *currNode = head;
-    Node *prevNode = NULL;
     while (currNode->next != NULL) {
-      prevNode = currNode;
       currNode = currNode->next;
     }
-    if (prevNode == NULL) {
+    if (currNode == head) {
       // deleting at head... only one Node in the list
       delete head;
       head = NULL; // we now have an empty list
     } else {
+      currNode->prev->next = NULL;
       delete currNode;
-      prevNode->next = NULL;
     }
   }
 }
@@ -146,6 +147,9 @@ void DoublyLinkedList::deleteNode(int targetValue) {
     // check case 2... the node to delete is the first node
     if (head->value == targetValue) {
       head = head->next;
+      if (head != NULL) { 
+        head->prev = NULL;
+      }
       delete currNode;
     } else { // case 3... the node to delete is not the first node, but might
              // not even be in the list
@@ -157,8 +161,10 @@ void DoublyLinkedList::deleteNode(int targetValue) {
       // check if we found targetValue
       if (currNode != NULL) {
         // did find it
-        prevNode->next = currNode->next;
-        delete currNode;
+        currNode->prev->next = currNode->next;
+        if (currNode->next != NULL) {
+          currNode->next->prev = currNode->prev;
+        }
       }
     }
   }
